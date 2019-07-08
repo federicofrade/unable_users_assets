@@ -29,6 +29,15 @@ if (country in possible_countries):
 	conn.search(search_base, search_filter, attributes=search_atributes)
 	response = conn.response
 
+	# Internal Systems is in another OU for MLA
+	if (country == 'MLA'):
+		search_filter = '(userAccountControl=514)'
+		search_base = 'OU=Internal Systems,OU=Tecnologia,OU=Corporativos,OU=Usuarios Finales,OU=Usuarios,OU=MELI,OU=MercadoLibre,DC=ml,DC=com'
+		search_atributes = ['sAMAccountName']
+		conn.search(search_base, search_filter, attributes=search_atributes)
+		internal_systems_users = conn.response
+		response += internal_systems_users
+
 	# Snipe server and connection
 	headers = {
 		'Content-Type': 'application/json',
