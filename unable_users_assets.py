@@ -5,7 +5,6 @@ import json
 
 domain_user = 'ml\\admin_XXX'
 domain_pass = ''
-fury_portal_stock_token = ''
 country = 'MLU'
 
 possible_countries = ['MCO','MLA','MLB','MLC','MLM','MLP','MLU','MLV']
@@ -40,15 +39,14 @@ if (country in possible_countries):
 
 	# Snipe server and connection
 	headers = {
-		'Content-Type': 'application/json',
-		'x-auth-token': fury_portal_stock_token}
+		'Content-Type': 'application/json'}
 
 	retorno = []
 	print('procesando...')
 	for row in response:
 		ad_user = str(row['attributes']['sAMAccountName'])
 		#print(ad_user)
-		snipe_url = 'https://shield-test.adminml.com/is-api-stock/v1/stock?username=' + ad_user
+		snipe_url = 'https://shield.adminml.com/is-api-stock/v1/stock?username=' + ad_user
 		stock_response = eval(json.dumps(requests.get(snipe_url, headers=headers).json()))
 		#print(stock_response)
 		retorno.append({
